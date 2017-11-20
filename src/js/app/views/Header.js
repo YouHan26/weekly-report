@@ -2,8 +2,11 @@
  * Created by YouHan on 2017/11/20.
  */
 import React, {PureComponent} from "react";
-import styles from "./Header.css";
 import {Button, Dropdown, Icon, Menu} from "antd";
+import {connect} from "react-redux";
+import PropTypes from "prop-types";
+
+import styles from "./Header.css";
 
 
 class Header extends PureComponent {
@@ -13,16 +16,21 @@ class Header extends PureComponent {
   
   
   render() {
-    const menu = (
+    const {user} = this.props;
+    const {login, userInfo} = user;
+    
+    const logoutMenu = (
       <Menu>
         <Menu.Item>
-          <a target="_blank" rel="noopener noreferrer" href="http://www.alipay.com/">1st menu item</a>
+          <span>登出</span>
         </Menu.Item>
+      </Menu>
+    );
+    
+    const loginMenu = (
+      <Menu>
         <Menu.Item>
-          <a target="_blank" rel="noopener noreferrer" href="http://www.taobao.com/">2nd menu item</a>
-        </Menu.Item>
-        <Menu.Item>
-          <a target="_blank" rel="noopener noreferrer" href="http://www.tmall.com/">3rd menu item</a>
+          <div>登陆</div>
         </Menu.Item>
       </Menu>
     );
@@ -30,14 +38,43 @@ class Header extends PureComponent {
     return (
       <div className={styles.root}>
         <div className={styles.content}>
-          <span>Weekly Report</span>
-          <Dropdown overlay={menu}>
-            <Button>bottomLeft</Button>
-          </Dropdown>
+          <span style={{fontSize: '18px'}}>Weekly Report</span>
+          {login ?
+            <Dropdown overlay={logoutMenu}>
+              <Button className={styles.user}>
+                <Icon type="user" />
+                {userInfo.email}
+              </Button>
+            </Dropdown> :
+            <Dropdown overlay={loginMenu}>
+              <Button className={styles.user}>
+                <Icon type="user" />
+                未登录
+              </Button>
+            </Dropdown>
+          }
         </div>
       </div>
     );
   }
 }
 
-export default Header;
+Header.propTypes = {
+  user: PropTypes.shape({
+    login: PropTypes.bool.isRequired,
+    showModal: PropTypes.bool.isRequired,
+    userInfo: PropTypes.shape({
+      email: PropTypes.string
+    })
+  })
+};
+
+Header.defaultProps = {
+  userInfo: {}
+};
+
+export default connect((state) => {
+  return {
+    user: state.user
+  };
+}, {})(Header);

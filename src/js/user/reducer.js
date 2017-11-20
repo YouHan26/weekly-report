@@ -4,7 +4,8 @@
 
 const initState = {
   login: false,
-  userInfo: {}
+  showModal: false,
+  userInfo: {},
 };
 
 const state = (state = initState, action) => {
