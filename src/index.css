@@ -36,16 +36,8 @@ custom scroll bar
   background-color: black;
 }
 
-.ant-card-body {
-  padding: 12px;
-}
-
 .ant-card-head {
   padding: 0;
-}
-
-.ant-card-extra {
-  right: 12px;
 }
 
 .ant-calendar-picker-input {
