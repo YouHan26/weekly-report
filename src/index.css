@@ -1,0 +1,53 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
+button, img {
+  border: none;
+}
+
+button:focus {
+  outline: none;
+}
+
+input, textarea, div, button, label {
+  border-radius: 0 !important;
+}
+
+/**
+custom scroll bar
+ */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: white;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #8e8e8e;
+}
+
+::-webkit-scrollbar-corner {
+  background-color: black;
+}
+
+.ant-card-body {
+  padding: 12px;
+}
+
+.ant-card-head {
+  padding: 0;
+}
+
+.ant-card-extra {
+  right: 12px;
+}
+
+.ant-calendar-picker-input {
+  border-radius: 0;
+}
