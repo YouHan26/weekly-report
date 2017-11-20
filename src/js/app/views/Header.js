@@ -5,15 +5,17 @@ import React, {PureComponent} from "react";
 import {Button, Dropdown, Icon, Menu} from "antd";
 import {connect} from "react-redux";
 import PropTypes from "prop-types";
-
+import {userAction} from '../../user';
 import styles from "./Header.css";
+
+const {showLoginModal, logout_start} = userAction;
 
 
 class Header extends PureComponent {
   constructor(props) {
     super(props);
+    
   }
-  
   
   render() {
     const {user} = this.props;
@@ -22,7 +24,7 @@ class Header extends PureComponent {
     const logoutMenu = (
       <Menu>
         <Menu.Item>
-          <span>登出</span>
+          <div onClick={this.props.logout}>登出</div>
         </Menu.Item>
       </Menu>
     );
@@ -30,7 +32,7 @@ class Header extends PureComponent {
     const loginMenu = (
       <Menu>
         <Menu.Item>
-          <div>登陆</div>
+          <div onClick={this.props.showLoginModal}>登陆</div>
         </Menu.Item>
       </Menu>
     );
@@ -66,7 +68,9 @@ Header.propTypes = {
     userInfo: PropTypes.shape({
       email: PropTypes.string
     })
-  })
+  }),
+  showLoginModal: PropTypes.func.isRequired,
+  logout: PropTypes.func.isRequired,
 };
 
 Header.defaultProps = {
@@ -77,4 +81,7 @@ export default connect((state) => {
   return {
     user: state.user
   };
-}, {})(Header);
+}, {
+  showLoginModal,
+  logout_start
+})(Header);

@@ -3,7 +3,7 @@
  */
 import {combineEpics} from "redux-observable";
 
-import {epic as userEpic} from "./user/index";
+import {userEpic} from "./user";
 
 
 const rootEpic = combineEpics(

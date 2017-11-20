@@ -11,10 +11,12 @@ import configureStore from "./js/store/configureStore";
 
 moment.locale('zh-cn');
 
+const store = configureStore();
+
 const Root = () => {
   
   return (
-    <Provider store={configureStore()}>
+    <Provider store={store}>
       <App />
     </Provider>
   );

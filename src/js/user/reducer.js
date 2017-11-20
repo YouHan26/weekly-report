@@ -2,6 +2,7 @@
  * Created by YouHan on 2017/11/20.
  */
 
+import actionType from "./actionType";
 const initState = {
   login: false,
   showModal: false,
@@ -10,6 +11,9 @@ const initState = {
 
 const state = (state = initState, action) => {
   switch (action.type) {
+    case actionType.logout: {
+      return {...initState};
+    }
     default: {
       return state;
     }

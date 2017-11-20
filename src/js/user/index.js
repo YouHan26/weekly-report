@@ -1,11 +1,14 @@
 /**
  * Created by YouHan on 2017/11/20.
  */
-import reducer from './reducer';
-import epic from './epic';
-
+import userReducer from "./reducer";
+import userEpic from "./epic";
+import * as userAction from "./action";
+import userActionType from "./actionType";
 
 export {
-  reducer,
-  epic
+  userAction,
+  userActionType,
+  userEpic,
+  userReducer
 };
