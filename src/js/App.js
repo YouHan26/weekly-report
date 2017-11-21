@@ -6,6 +6,7 @@ import CalendarPage from "./calendar/views/CalendarPage";
 import Header from "./app/views/Header";
 
 import styles from './App.css';
+import HomePage from "./app/views/HomePage";
 
 const Protected = () => <h3>Protected</h3>;
 
@@ -22,15 +23,6 @@ const PrivateRoute = ({component: Component, ...rest}) => (
   )} />
 );
 
-const NoMatch = () => {
-  return (
-    <div>
-      not match
-    </div>
-  );
-};
-
-
 const App = (props) => {
   return (
     <div className={styles.root}>
@@ -39,8 +31,8 @@ const App = (props) => {
       <div className={styles.content}>
         <Switch>
           <Route exact={true} path={`/`} component={CalendarPage} />
-          <PrivateRoute path="/protected" component={Protected} />
-          <Route component={NoMatch} />
+          <PrivateRoute path="/calendar" component={CalendarPage} />
+          <Route component={HomePage} />
         </Switch>
       </div>
     </div>

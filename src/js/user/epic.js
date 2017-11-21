@@ -18,6 +18,23 @@ const logoutEpic = (action$) => {
     });
 };
 
+const syncUserEpic = (action$) => {
+  return action$.ofType(actionType.sync_user)
+    .mergeMap((action) => {
+      return new Observable.of(authHelper.syncAuth())
+        .filter((data) => {
+          return !!data;
+        })
+        .map((data) => {
+          return {
+            ...action,
+            type: actionType.login,
+            userInfo: data
+          };
+        })
+    })
+};
+
 const loginEpic = (action$) => {
   return action$.ofType(actionType.login_start)
     .mergeMap((action) => {
@@ -39,7 +56,8 @@ const loginEpic = (action$) => {
 
 export default combineEpics(
   logoutEpic,
-  loginEpic
+  loginEpic,
+  syncUserEpic
 );
 
 

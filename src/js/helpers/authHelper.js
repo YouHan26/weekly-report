@@ -13,12 +13,14 @@ const init = () => {
     storageBucket: "weekly-report-d2fcc.appspot.com",
     messagingSenderId: "701357902566"
   });
+  
+  
+  firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL);
 };
 
 init();
 
 const auth = firebase.auth();
-
 
 export default {
   init,
@@ -44,5 +46,11 @@ export default {
   },
   logout_start: () => {
     return auth.signOut();
+  },
+  syncAuth: () => {
+    return auth.currentUser;
+  },
+  getUid: () => {
+    return auth.currentUser ? auth.currentUser.uid : 'anonymous'
   }
 };

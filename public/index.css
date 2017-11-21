@@ -43,3 +43,8 @@ custom scroll bar
 .ant-calendar-picker-input {
   border-radius: 0;
 }
+
+#root {
+  width: 100%;
+  height: 100%;
+}

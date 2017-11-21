@@ -4,10 +4,12 @@
 import {combineEpics} from "redux-observable";
 
 import {userEpic} from "./user";
+import {calendarEpic} from './calendar';
 
 
 const rootEpic = combineEpics(
-  userEpic
+  userEpic,
+  calendarEpic
 );
 
 export default rootEpic;

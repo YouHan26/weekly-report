@@ -9,13 +9,17 @@ import {userAction} from '../../user';
 import styles from "./Header.css";
 import types from "../../helpers/types";
 
-const {showLoginModal, logout} = userAction;
+const {showLoginModal, logout, syncAuth} = userAction;
 
 
 class Header extends PureComponent {
   constructor(props) {
     super(props);
     
+  }
+  
+  componentDidMount(){
+    this.props.syncAuth();
   }
   
   render() {
@@ -56,6 +60,7 @@ Header.propTypes = {
   user: types.user,
   showLoginModal: PropTypes.func.isRequired,
   logout: PropTypes.func.isRequired,
+  syncAuth: PropTypes.func.isRequired,
 };
 
 Header.defaultProps = {
@@ -68,5 +73,6 @@ export default connect((state) => {
   };
 }, {
   showLoginModal,
-  logout
+  logout,
+  syncAuth
 })(Header);

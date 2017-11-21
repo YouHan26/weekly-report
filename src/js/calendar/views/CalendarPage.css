@@ -1,0 +1,28 @@
+.root {
+  display: flex;
+  flex-direction: row;
+  flex: 1
+}
+
+.left {
+  background-color: #f7f7f7;
+  flex: 3;
+  flex-shrink: 2;
+  padding: 50px;
+}
+
+.right {
+  background-color: white;
+  min-width: 400px;
+  flex: 1;
+  border-left: solid 1px rgb(236, 236, 236);
+  padding: 20px;
+}
+
+.input{
+  margin-top: 12px;
+}
+
+.button{
+  margin-top: 12px;
+}

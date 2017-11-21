@@ -30,3 +30,9 @@ export const hideModal = () => {
     type: actionType.hide_modal
   };
 };
+
+export const syncAuth = () => {
+  return {
+    type: actionType.sync_user
+  };
+};
