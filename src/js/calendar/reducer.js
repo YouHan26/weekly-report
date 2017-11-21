@@ -3,11 +3,11 @@
  */
 
 import actionType from "./actionType";
+import {combineReducers} from "redux";
 
-const initState = {
-};
+const initState = [];
 
-const state = (state = initState, action) => {
+const events = (state = initState, action) => {
   switch (action.type) {
     default: {
       return state;
@@ -16,4 +16,6 @@ const state = (state = initState, action) => {
 };
 
 
-export default state;
+export default combineReducers({
+  events
+});

@@ -13,7 +13,7 @@ init();
 class refHelper {
   constructor(refName) {
     this.refName = refName;
-    this.ref = db.ref(this.refName);
+    this.ref = db.ref().child(this.refName);
   }
   
   load() {
@@ -25,8 +25,12 @@ class refHelper {
   
   add(data) {
     const key = this.ref.push().key;
-    
-    return this.update({...data, key});
+
+    console.log({...data, key});
+
+    return db.ref().update({
+      [`/${this.refName}/${key}`]: {...data, key}
+    });
   }
   
   update(data) {
@@ -41,5 +45,5 @@ class refHelper {
   }
 }
 
-export const eventHelper = new refHelper('event');
-export const projectHelper = new refHelper('project');
+export const eventHelper = new refHelper('events');
+export const projectHelper = new refHelper('projects');
