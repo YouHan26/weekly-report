@@ -29,9 +29,8 @@ const loginEpic = (action$) => {
           }
         });
     })
-    .map(({action, userInfo}) => {
+    .map(({userInfo}) => {
       return {
-        ...action,
         userInfo,
         type: actionType.login
       }

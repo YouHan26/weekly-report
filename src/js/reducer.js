@@ -3,8 +3,8 @@
  */
 import {combineReducers} from 'redux';
 
-import {userEpic} from './user/index';
+import {userReducer} from './user/index';
 
 export default combineReducers({
-  userEpic
+  user: userReducer
 });

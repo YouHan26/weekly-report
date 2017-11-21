@@ -12,7 +12,7 @@ export const logout = () => {
 
 export const login = (email, password) => {
   return {
-    type: actionType.login,
+    type: actionType.login_start,
     email,
     password
   };
@@ -21,5 +21,12 @@ export const login = (email, password) => {
 export const showLoginModal = () => {
   return {
     type: actionType.show_modal
+  };
+};
+
+
+export const hideModal = () => {
+  return {
+    type: actionType.hide_modal
   };
 };

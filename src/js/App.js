@@ -1,7 +1,7 @@
 import React from "react";
 import {BrowserRouter as Router, Redirect, Route, Switch} from "react-router-dom";
 
-import LoginPage from "./user/views/LoginPage";
+import LoginModal from "./user/views/LoginModal";
 import CalendarPage from "./calendar/views/CalendarPage";
 import Header from "./app/views/Header";
 
@@ -35,10 +35,10 @@ const App = (props) => {
   return (
     <div className={styles.root}>
       <Header />
+      <LoginModal />
       <div className={styles.content}>
         <Switch>
           <Route exact={true} path={`/`} component={CalendarPage} />
-          <Route exact={true} path={`/login`} component={LoginPage} />
           <PrivateRoute path="/protected" component={Protected} />
           <Route component={NoMatch} />
         </Switch>

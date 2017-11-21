@@ -7,8 +7,9 @@ import {connect} from "react-redux";
 import PropTypes from "prop-types";
 import {userAction} from '../../user';
 import styles from "./Header.css";
+import types from "../../helpers/types";
 
-const {showLoginModal, logout_start} = userAction;
+const {showLoginModal, logout} = userAction;
 
 
 class Header extends PureComponent {
@@ -29,14 +30,6 @@ class Header extends PureComponent {
       </Menu>
     );
     
-    const loginMenu = (
-      <Menu>
-        <Menu.Item>
-          <div onClick={this.props.showLoginModal}>登陆</div>
-        </Menu.Item>
-      </Menu>
-    );
-    
     return (
       <div className={styles.root}>
         <div className={styles.content}>
@@ -48,12 +41,10 @@ class Header extends PureComponent {
                 {userInfo.email}
               </Button>
             </Dropdown> :
-            <Dropdown overlay={loginMenu}>
-              <Button className={styles.user}>
-                <Icon type="user" />
-                未登录
-              </Button>
-            </Dropdown>
+            <Button className={styles.user} onClick={this.props.showLoginModal}>
+              <Icon type="user" />
+              未登录
+            </Button>
           }
         </div>
       </div>
@@ -62,13 +53,7 @@ class Header extends PureComponent {
 }
 
 Header.propTypes = {
-  user: PropTypes.shape({
-    login: PropTypes.bool.isRequired,
-    showModal: PropTypes.bool.isRequired,
-    userInfo: PropTypes.shape({
-      email: PropTypes.string
-    })
-  }),
+  user: types.user,
   showLoginModal: PropTypes.func.isRequired,
   logout: PropTypes.func.isRequired,
 };
@@ -83,5 +68,5 @@ export default connect((state) => {
   };
 }, {
   showLoginModal,
-  logout_start
+  logout
 })(Header);
