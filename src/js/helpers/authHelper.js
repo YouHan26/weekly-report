@@ -15,7 +15,7 @@ const init = () => {
   });
   
   
-  firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL);
+  // firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL);
 };
 
 init();

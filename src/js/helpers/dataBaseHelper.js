@@ -1,6 +1,7 @@
 import firebase from 'firebase';
 
 import './authHelper';
+import authHelper from "./authHelper";
 
 const db = firebase.database();
 
@@ -17,7 +18,10 @@ class refHelper {
   }
   
   load() {
-    return this.ref.once('value')
+    return this.ref
+      // .orderByChild('uid')
+      // .equalTo(authHelper.getUid())
+      .once('value')
       .then((snapshot) => {
         return snapshot.val();
       });
@@ -32,7 +36,7 @@ class refHelper {
   update(data) {
     const {key} = data;
     return db.ref().update({
-      [`/${this.refName}/${key}`]: {...data, key}
+      [`/${this.refName}/${key}`]: {...data, key, uid: authHelper.getUid()}
     });
   }
   

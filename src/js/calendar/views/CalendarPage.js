@@ -19,7 +19,7 @@ const {TextArea} = Input;
 
 
 const initState = {
-  range: [],
+  range: [moment(), moment()],
   title: '',
   desc: '',
   tags: []

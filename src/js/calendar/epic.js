@@ -7,24 +7,34 @@ import actionType from "./actionType";
 import {eventHelper} from '../helpers/dataBaseHelper';
 import {loadEvents} from "./action";
 import moment from "moment";
+import authHelper from "../helpers/authHelper";
+import {userActionType} from '../user';
 
 const loadEventsEpic = (action$) => {
-  return action$.ofType(actionType.load_event_start)
+  return action$
+    .filter((action) => {
+      return action.type === actionType.load_event_start ||
+        action.type === userActionType.login;
+    })
     .mergeMap((action) => {
       return new Observable.fromPromise(eventHelper.load())
         .map((events) => {
           return {
             ...action,
             type: actionType.load_event,
-            events: Object.values(events || {}).map((event) => {
-              const {range} = event;
-              return {
-                ...event,
-                range: range.length === 2 ?
-                  [moment(range[0]), moment(range[1])]
-                  : []
-              };
-            })
+            events: Object.values(events || {})
+              .filter((event) => {
+                return event.uid === authHelper.getUid();
+              })
+              .map((event) => {
+                const {range} = event;
+                return {
+                  ...event,
+                  range: range.length === 2 ?
+                    [moment(range[0]), moment(range[1])]
+                    : []
+                };
+              })
           };
         });
     });
