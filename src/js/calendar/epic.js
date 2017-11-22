@@ -16,7 +16,7 @@ const loadEventsEpic = (action$) => {
           return {
             ...action,
             type: actionType.load_event,
-            events: Object.values(events).map((event) => {
+            events: Object.values(events || {}).map((event) => {
               const {range} = event;
               return {
                 ...event,
@@ -50,10 +50,27 @@ const updateEventEpic = (action$) => {
     })
 };
 
+const removeEventEpic = (action$) => {
+  return action$.ofType(actionType.remove_event_start)
+    .mergeMap((action) => {
+      return new Observable.fromPromise(eventHelper.remove(action.eventKey))
+        .map(() => {
+          return action;
+        })
+    })
+    .do((action) => {
+      action.after && action.after();
+    })
+    .map(() => {
+      return loadEvents();
+    });
+};
+
 
 export default combineEpics(
   loadEventsEpic,
-  updateEventEpic
+  updateEventEpic,
+  removeEventEpic
 );
 
 

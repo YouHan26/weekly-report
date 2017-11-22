@@ -35,7 +35,6 @@ class TagSelect extends PureComponent {
             >
               {tag.name}
             </Button>
-
           );
         })}
       </div>

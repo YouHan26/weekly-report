@@ -6,16 +6,24 @@ export const loadEvents = () => {
   };
 };
 
-export const updateEvent = ({title = '', desc = '', tags = [], range = []}) => {
+export const updateEvent = ({title = '', desc = '', tags = [], range = [], key}, after) => {
   return {
     type: actionType.update_event_start,
     event: {
-      title, desc, tags,
+      title, desc, tags, key,
       range: range.length === 2 ? [
         range[0].toDate().getTime(),
         range[1].toDate().getTime()
       ] : []
-    }
+    },
+    after
+  };
+};
+
+export const removeEvent = (eventKey) => {
+  return {
+    type: actionType.remove_event_start,
+    eventKey
   };
 };
 

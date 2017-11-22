@@ -20,28 +20,24 @@ class refHelper {
     return this.ref.once('value')
       .then((snapshot) => {
         return snapshot.val();
-      })
+      });
   };
   
   add(data) {
     const key = this.ref.push().key;
-
-    console.log({...data, key});
-
+    
+    return this.update({...data, key});
+  }
+  
+  update(data) {
+    const {key} = data;
     return db.ref().update({
       [`/${this.refName}/${key}`]: {...data, key}
     });
   }
   
-  update(data) {
-    const {key} = data;
-    return this.ref.update({
-      [`${this.refName}/${key}`]: data
-    });
-  }
-  
   remove(key) {
-    this.ref.child(key).remove();
+    return key && this.ref.child(key).remove();
   }
 }
 

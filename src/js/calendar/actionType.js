@@ -8,6 +8,8 @@ export const actionTypes = {
   load_event_start: `${prefix}load_event_start`,
   update_event: `${prefix}update_event`,
   update_event_start: `${prefix}update_event_start`,
+  remove_event: `${prefix}remove_event`,
+  remove_event_start: `${prefix}remove_event_start`,
 };
 
 export default actionTypes;
