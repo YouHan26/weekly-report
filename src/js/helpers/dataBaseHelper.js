@@ -6,7 +6,7 @@ import authHelper from "./authHelper";
 const db = firebase.database();
 
 const init = () => {
-  firebase.database.enableLogging(true);
+  // firebase.database.enableLogging(true);
 };
 
 init();
