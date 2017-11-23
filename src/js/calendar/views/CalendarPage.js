@@ -49,11 +49,10 @@ class CalendarPage extends PureComponent {
   }
   
   selectSlot(slotInfo) {
-    const date = slotInfo.slots[0];
     this.setState({
       currentEvent: null,
       ...initState,
-      range: [moment(date), moment(date)]
+      range: [moment(slotInfo.start), moment(slotInfo.end)]
     });
   }
   
@@ -121,6 +120,8 @@ class CalendarPage extends PureComponent {
           className={styles.input}
         />
         <RangePicker
+          showTime={true}
+          format={'YYYY-MM-DD HH:mm:ss'}
           onChange={this.rangeChange}
           value={this.state.range}
           className={styles.input}
@@ -172,7 +173,7 @@ class CalendarPage extends PureComponent {
               const {range} = event;
               return {
                 ...event,
-                allDay: true,
+                // allDay: true,
                 start: new Date(range[0]),
                 end: new Date(range[1])
               }
