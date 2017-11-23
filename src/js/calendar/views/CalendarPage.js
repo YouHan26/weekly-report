@@ -5,7 +5,8 @@ import React, {PureComponent} from "react";
 import PropTypes from 'prop-types';
 import BigCalendar from 'react-big-calendar';
 import moment from "moment";
-import {Button, DatePicker, Input} from "antd";
+import {Button, Checkbox, DatePicker, Input} from "antd";
+import Push from 'push.js';
 import styles from './CalendarPage.css';
 
 import './../../helpers/dataBaseHelper';
@@ -22,18 +23,19 @@ const initState = {
   range: [moment(), moment()],
   title: '',
   desc: '',
-  tags: []
+  tags: [],
+  notice: false
 };
 
 class CalendarPage extends PureComponent {
   constructor(props) {
     super(props);
-    
+
     this.state = {
       ...initState,
       currentEvent: null,
     };
-    
+
     this.change = this.change.bind(this);
     this.rangeChange = this.rangeChange.bind(this);
     this.tagChange = this.tagChange.bind(this);
@@ -42,12 +44,22 @@ class CalendarPage extends PureComponent {
     this.updateEvent = this.updateEvent.bind(this);
     this.renderRight = this.renderRight.bind(this);
     this.removeEvent = this.removeEvent.bind(this);
+    this.checkChange = this.checkChange.bind(this);
   }
-  
+
   componentDidMount() {
     this.props.loadEvents();
+    // Push.create("Hello world!", {
+    //   body: "How's it hangin'?",
+    //   icon: '/icon.png',
+    //   timeout: 4000,
+    //   onClick: function () {
+    //     window.focus();
+    //     this.close();
+    //   }
+    // });
   }
-  
+
   selectSlot(slotInfo) {
     this.setState({
       currentEvent: null,
@@ -55,40 +67,47 @@ class CalendarPage extends PureComponent {
       range: [moment(slotInfo.start), moment(slotInfo.end)]
     });
   }
-  
+
   change(e) {
     this.setState({
       [e.target.name]: e.target.value
     });
   }
-  
+
+  checkChange(e) {
+    this.setState({
+      notice: e.target.checked
+    });
+  }
+
   rangeChange(range) {
     this.setState({
       range
     });
   }
-  
+
   tagChange(value) {
     this.setState({
       tags: value
     });
   }
-  
+
   selectEvent(event) {
-    const {title, desc, tags, range} = event;
+    const {title, desc, tags, range, notice = false} = event;
     this.setState({
       currentEvent: event,
       title,
       desc,
       tags,
+      notice,
       range: [moment(range[0]), moment(range[1])]
     });
   }
-  
+
   updateEvent() {
-    const {title, range, desc, tags, currentEvent} = this.state;
+    const {title, range, desc, tags, notice, currentEvent} = this.state;
     this.props.updateEvent({
-      title, desc, tags, range,
+      title, desc, tags, range, notice,
       key: currentEvent ? currentEvent.key : null
     }, () => {
       this.setState({
@@ -97,7 +116,7 @@ class CalendarPage extends PureComponent {
       });
     });
   }
-  
+
   removeEvent() {
     const {currentEvent} = this.state;
     this.props.removeEvent(currentEvent.key);
@@ -106,10 +125,10 @@ class CalendarPage extends PureComponent {
       ...initState
     });
   }
-  
+
   renderRight() {
     const {currentEvent} = this.state;
-    
+
     return (
       <div className={styles.right}>
         <Input
@@ -120,8 +139,8 @@ class CalendarPage extends PureComponent {
           className={styles.input}
         />
         <RangePicker
-          showTime={true}
-          format={'YYYY-MM-DD HH:mm:ss'}
+          showTime={{format: 'HH:mm'}}
+          format={'YYYY-MM-DD HH:mm'}
           onChange={this.rangeChange}
           value={this.state.range}
           className={styles.input}
@@ -134,6 +153,14 @@ class CalendarPage extends PureComponent {
           onChange={this.change}
           className={styles.input}
         />
+        <Checkbox
+          className={styles.input}
+          name={'notice'}
+          onChange={this.checkChange}
+          checked={this.state.notice}
+        >
+          ENABLE NOTIFICATION
+        </Checkbox>
         <TagSelect
           value={this.state.tags}
           onChange={this.tagChange}
@@ -159,10 +186,10 @@ class CalendarPage extends PureComponent {
       </div>
     );
   }
-  
+
   render() {
     const {events} = this.props;
-    
+
     return (
       <div className={styles.root}>
         <div className={styles.left}>
@@ -173,7 +200,6 @@ class CalendarPage extends PureComponent {
               const {range} = event;
               return {
                 ...event,
-                // allDay: true,
                 start: new Date(range[0]),
                 end: new Date(range[1])
               }
@@ -182,11 +208,11 @@ class CalendarPage extends PureComponent {
             onSelectSlot={this.selectSlot}
             eventPropGetter={(event, start, end, isSelected) => {
               let backgroundColor = '#dda67a';
-              
+
               if (isSelected) {
                 backgroundColor = '#3174ad';
               }
-              
+
               const eventTags = event.tags;
               if (eventTags && eventTags.length > 0) {
                 backgroundColor = tags.find((tag) => {
@@ -201,7 +227,7 @@ class CalendarPage extends PureComponent {
         </div>
         {this.renderRight()}
       </div>
-    
+
     );
   }
 }

@@ -8,6 +8,7 @@ import {eventHelper} from '../helpers/dataBaseHelper';
 import {loadEvents} from "./action";
 import moment from "moment";
 import authHelper from "../helpers/authHelper";
+import pushHelper from "../helpers/pushHelper";
 import {userActionType} from '../user';
 
 const loadEventsEpic = (action$) => {
@@ -36,6 +37,9 @@ const loadEventsEpic = (action$) => {
                 };
               })
           };
+        })
+        .do(({events}) => {
+          pushHelper.start(events);
         });
     });
 };
