@@ -8,6 +8,7 @@ import PropTypes from "prop-types";
 import {userAction} from '../../user';
 import styles from "./Header.css";
 import types from "../../helpers/types";
+import authHelper from "../../helpers/authHelper";
 
 const {showLoginModal, logout, syncAuth, login} = userAction;
 
@@ -18,8 +19,9 @@ class Header extends PureComponent {
     
   }
   
-  componentDidMount(){
-    this.props.login('anonymous@gmail.com', '123456');
+  componentDidMount() {
+    const userData = authHelper.recoverUser();
+    this.props.login(userData.email, userData.password);
   }
   
   render() {

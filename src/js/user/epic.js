@@ -46,6 +46,10 @@ const loginEpic = (action$) => {
           }
         });
     })
+    .do(({action}) => {
+      const {email, password} = action;
+      authHelper.persistUser({email, password});
+    })
     .map(({userInfo}) => {
       return {
         userInfo,

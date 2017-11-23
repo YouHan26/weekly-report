@@ -22,6 +22,8 @@ init();
 
 const auth = firebase.auth();
 
+const USER_KEY = '@report:USER_KEY';
+
 export default {
   init,
   login: (email, password) => {
@@ -52,5 +54,12 @@ export default {
   },
   getUid: () => {
     return auth.currentUser ? auth.currentUser.uid : 'anonymous'
+  },
+  persistUser: (data) => {
+    localStorage.setItem(USER_KEY, JSON.stringify(data))
+  },
+  recoverUser: () => {
+    return JSON.parse(localStorage.getItem(USER_KEY)) ||
+      {email: 'anonymous@gmail.com', password: '123456'};
   }
 };

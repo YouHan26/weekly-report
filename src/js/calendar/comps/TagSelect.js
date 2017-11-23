@@ -32,6 +32,7 @@ class TagSelect extends PureComponent {
               className={styles.tag}
               onClick={this.change(tag.key)}
               type={value.indexOf(tag.key) >= 0 ? 'primary' : 'default'}
+              style={{borderLeft: `5px solid ${tag.color}`}}
             >
               {tag.name}
             </Button>
