@@ -1,0 +1,22 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  background-color: #f7f7f7;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+}
+
+.card {
+  flex: 1;
+  display: flex;
+  height: 152px;
+  align-items: center;
+  justify-content: center;
+}

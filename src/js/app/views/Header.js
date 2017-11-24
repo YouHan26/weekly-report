@@ -44,7 +44,12 @@ class Header extends PureComponent {
     return (
       <div className={styles.root}>
         <div className={styles.content}>
-          <Link to='' style={{fontSize: '18px'}}>Weekly Report</Link>
+          <div>
+            <Link to='' style={{fontSize: '18px'}}>Weekly Report</Link>
+            <Link to='/helpers' style={{fontSize: '18px', marginLeft: '25px'}}>
+              Useful Tools
+            </Link>
+          </div>
           {login ?
             <Dropdown overlay={logoutMenu}>
               <Button className={styles.user}>

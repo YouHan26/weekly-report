@@ -19,8 +19,8 @@ class refHelper {
   
   load() {
     return this.ref
-      // .orderByChild('uid')
-      // .equalTo(authHelper.getUid())
+    // .orderByChild('uid')
+    // .equalTo(authHelper.getUid())
       .once('value')
       .then((snapshot) => {
         return snapshot.val();
@@ -46,4 +46,4 @@ class refHelper {
 }
 
 export const eventHelper = new refHelper('events');
-export const projectHelper = new refHelper('projects');
+export const tagHelper = new refHelper('tags');

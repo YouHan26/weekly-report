@@ -1,0 +1,19 @@
+.root {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background-color: #f7f7f7;
+}
+
+.item {
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.input {
+  margin-top: 12px;
+  width: 400px;
+}
