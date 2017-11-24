@@ -46,7 +46,7 @@ export default class pushHelper {
       return a.range[0].isSameOrBefore(b.range[0], 'minute');
     })
       .filter((item) => {
-        return item.range[0].isSameOrAfter(moment(), 'minute');
+        return item.notice && item.range[0].isSameOrAfter(moment(), 'minute');
       });
     pushHelper.init();
   }

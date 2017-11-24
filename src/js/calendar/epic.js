@@ -25,7 +25,8 @@ const loadEventsEpic = (action$) => {
             type: actionType.load_event,
             events: Object.values(events || {})
               .filter((event) => {
-                return event.uid === authHelper.getUid();
+                return event.uid === authHelper.getUid()
+                  || event.common === true;
               })
               .map((event) => {
                 const {range} = event;

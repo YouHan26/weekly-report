@@ -6,7 +6,6 @@ import PropTypes from 'prop-types';
 import BigCalendar from 'react-big-calendar';
 import moment from "moment";
 import {Button, Checkbox, DatePicker, Input} from "antd";
-import Push from 'push.js';
 import styles from './CalendarPage.css';
 
 import './../../helpers/dataBaseHelper';
@@ -24,18 +23,19 @@ const initState = {
   title: '',
   desc: '',
   tags: [],
-  notice: false
+  notice: false,
+  common: false
 };
 
 class CalendarPage extends PureComponent {
   constructor(props) {
     super(props);
-
+    
     this.state = {
       ...initState,
       currentEvent: null,
     };
-
+    
     this.change = this.change.bind(this);
     this.rangeChange = this.rangeChange.bind(this);
     this.tagChange = this.tagChange.bind(this);
@@ -46,7 +46,7 @@ class CalendarPage extends PureComponent {
     this.removeEvent = this.removeEvent.bind(this);
     this.checkChange = this.checkChange.bind(this);
   }
-
+  
   componentDidMount() {
     this.props.loadEvents();
     // Push.create("Hello world!", {
@@ -59,7 +59,7 @@ class CalendarPage extends PureComponent {
     //   }
     // });
   }
-
+  
   selectSlot(slotInfo) {
     this.setState({
       currentEvent: null,
@@ -67,47 +67,48 @@ class CalendarPage extends PureComponent {
       range: [moment(slotInfo.start), moment(slotInfo.end)]
     });
   }
-
+  
   change(e) {
     this.setState({
       [e.target.name]: e.target.value
     });
   }
-
+  
   checkChange(e) {
     this.setState({
-      notice: e.target.checked
+      [e.target.name]: e.target.checked
     });
   }
-
+  
   rangeChange(range) {
     this.setState({
       range
     });
   }
-
+  
   tagChange(value) {
     this.setState({
       tags: value
     });
   }
-
+  
   selectEvent(event) {
-    const {title, desc, tags, range, notice = false} = event;
+    const {title, desc, tags, range, notice = false, common = false} = event;
     this.setState({
       currentEvent: event,
       title,
       desc,
       tags,
       notice,
+      common,
       range: [moment(range[0]), moment(range[1])]
     });
   }
-
+  
   updateEvent() {
-    const {title, range, desc, tags, notice, currentEvent} = this.state;
+    const {title, range, desc, tags, notice, common, currentEvent} = this.state;
     this.props.updateEvent({
-      title, desc, tags, range, notice,
+      title, desc, tags, range, notice, common,
       key: currentEvent ? currentEvent.key : null
     }, () => {
       this.setState({
@@ -116,7 +117,7 @@ class CalendarPage extends PureComponent {
       });
     });
   }
-
+  
   removeEvent() {
     const {currentEvent} = this.state;
     this.props.removeEvent(currentEvent.key);
@@ -125,10 +126,10 @@ class CalendarPage extends PureComponent {
       ...initState
     });
   }
-
+  
   renderRight() {
     const {currentEvent} = this.state;
-
+    
     return (
       <div className={styles.right}>
         <Input
@@ -161,6 +162,16 @@ class CalendarPage extends PureComponent {
         >
           ENABLE NOTIFICATION
         </Checkbox>
+        <div>
+          <Checkbox
+            className={styles.input}
+            name={'common'}
+            onChange={this.checkChange}
+            checked={this.state.common}
+          >
+            ENABLE PUBLIC
+          </Checkbox>
+        </div>
         <TagSelect
           value={this.state.tags}
           onChange={this.tagChange}
@@ -186,10 +197,10 @@ class CalendarPage extends PureComponent {
       </div>
     );
   }
-
+  
   render() {
     const {events} = this.props;
-
+    
     return (
       <div className={styles.root}>
         <div className={styles.left}>
@@ -208,11 +219,11 @@ class CalendarPage extends PureComponent {
             onSelectSlot={this.selectSlot}
             eventPropGetter={(event, start, end, isSelected) => {
               let backgroundColor = '#dda67a';
-
+              
               if (isSelected) {
                 backgroundColor = '#3174ad';
               }
-
+              
               const eventTags = event.tags;
               if (eventTags && eventTags.length > 0) {
                 backgroundColor = tags.find((tag) => {
@@ -227,7 +238,7 @@ class CalendarPage extends PureComponent {
         </div>
         {this.renderRight()}
       </div>
-
+    
     );
   }
 }
