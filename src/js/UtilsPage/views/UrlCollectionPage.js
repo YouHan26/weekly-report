@@ -4,6 +4,7 @@ import styles from './UrlCollectionPage.css';
 import {connect} from "react-redux";
 import {Button, Col, Input, Row, Table} from "antd";
 import {projectAction} from '../../project';
+import authHelper from "../../helpers/authHelper";
 
 const {updateProject, loadProject} = projectAction;
 
@@ -75,6 +76,8 @@ class UrlCollectionPage extends PureComponent {
       dataIndex: 'status'
     }];
     
+    const user = authHelper.syncAuth();
+    
     return (
       <div className={styles.root}>
         <div className={styles.container}>
@@ -83,58 +86,61 @@ class UrlCollectionPage extends PureComponent {
             className={styles.table}
             columns={columns}
             dataSource={projects}
+            pagination={false}
           />
-          <Row gutter={5}>
-            <Col span={4}>
-              <Input
-                value={this.state.name}
-                onChange={this.change}
-                name={'name'}
-                placeholder={'PROJECT NAME'}
-              />
-            </Col>
-            <Col span={4}>
-              <Input
-                value={this.state.owner}
-                onChange={this.change}
-                name={'owner'}
-                placeholder={'PROJECT OWNER'}
-              />
-            </Col>
-            <Col span={4}>
-              <Input
-                value={this.state.qa}
-                onChange={this.change}
-                name={'qa'}
-                placeholder={'PROJECT QA'}
-              />
-            </Col>
-            <Col span={4}>
-              <Input
-                value={this.state.pp}
-                onChange={this.change}
-                name={'pp'}
-                placeholder={'PROJECT PP'}
-              />
-            </Col>
-            
-            <Col span={4}>
-              <Input
-                value={this.state.prod}
-                onChange={this.change}
-                name={'prod'}
-                placeholder={'PROJECT PROD'}
-              />
-            </Col>
-            <Col span={4}>
-              <Button
-                type="primary"
-                onClick={this.save}
-              >
-                ADD PROJECT
-              </Button>
-            </Col>
-          </Row>
+          {user && user.email === 'youhan26@gmail.com' ?
+            <Row gutter={5}>
+              <Col span={4}>
+                <Input
+                  value={this.state.name}
+                  onChange={this.change}
+                  name={'name'}
+                  placeholder={'PROJECT NAME'}
+                />
+              </Col>
+              <Col span={4}>
+                <Input
+                  value={this.state.owner}
+                  onChange={this.change}
+                  name={'owner'}
+                  placeholder={'PROJECT OWNER'}
+                />
+              </Col>
+              <Col span={4}>
+                <Input
+                  value={this.state.qa}
+                  onChange={this.change}
+                  name={'qa'}
+                  placeholder={'PROJECT QA'}
+                />
+              </Col>
+              <Col span={4}>
+                <Input
+                  value={this.state.pp}
+                  onChange={this.change}
+                  name={'pp'}
+                  placeholder={'PROJECT PP'}
+                />
+              </Col>
+              
+              <Col span={4}>
+                <Input
+                  value={this.state.prod}
+                  onChange={this.change}
+                  name={'prod'}
+                  placeholder={'PROJECT PROD'}
+                />
+              </Col>
+              <Col span={4}>
+                <Button
+                  type="primary"
+                  onClick={this.save}
+                >
+                  ADD PROJECT
+                </Button>
+              </Col>
+            </Row> : null
+          }
         </div>
       </div>
     );

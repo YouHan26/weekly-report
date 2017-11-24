@@ -28,6 +28,12 @@ export default class ChangeLog extends PureComponent {
           <Timeline.Item color="green">
             2017-11-24 Support Change Log
           </Timeline.Item>
+          <Timeline.Item color="green">
+            2017-11-24 Add QR code generator
+          </Timeline.Item>
+          <Timeline.Item color="green">
+            2017-11-24 Add URL Collection
+          </Timeline.Item>
           <Timeline.Item>
             Support Custom Tags
           </Timeline.Item>
