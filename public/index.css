@@ -12,7 +12,7 @@ button:focus {
   outline: none;
 }
 
-input, textarea, div, button, label {
+input, textarea, button, label {
   border-radius: 0 !important;
 }
 

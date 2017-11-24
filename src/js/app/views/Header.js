@@ -44,7 +44,7 @@ class Header extends PureComponent {
             <Dropdown overlay={logoutMenu}>
               <Button className={styles.user}>
                 <Icon type="user" />
-                {userInfo.email}
+                {userInfo && userInfo.email}
               </Button>
             </Dropdown> :
             <Button className={styles.user} onClick={this.props.showLoginModal}>

@@ -7,6 +7,7 @@ import Header from "./app/views/Header";
 
 import styles from './App.css';
 import HomePage from "./app/views/HomePage";
+import ChangeLog from "./app/views/ChangeLog";
 
 const Protected = () => <h3>Protected</h3>;
 
@@ -32,6 +33,7 @@ const App = (props) => {
         <Switch>
           <Route exact={true} path={`/`} component={CalendarPage} />
           <PrivateRoute path="/calendar" component={CalendarPage} />
+          <Route path="/changelog" component={ChangeLog} />
           <Route component={HomePage} />
         </Switch>
       </div>

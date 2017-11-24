@@ -29,3 +29,6 @@ export const tags = [{
 }];
 
 // #dda67a
+
+
+export const VERSION = '0.1.1';
