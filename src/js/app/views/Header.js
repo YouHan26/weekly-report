@@ -4,11 +4,13 @@
 import React, {PureComponent} from "react";
 import {Button, Dropdown, Icon, Menu} from "antd";
 import {connect} from "react-redux";
+import {Link} from "react-router-dom";
 import PropTypes from "prop-types";
 import {userAction} from '../../user';
 import styles from "./Header.css";
 import types from "../../helpers/types";
 import authHelper from "../../helpers/authHelper";
+
 
 const {showLoginModal, logout, syncAuth, login} = userAction;
 
@@ -31,7 +33,11 @@ class Header extends PureComponent {
     const logoutMenu = (
       <Menu>
         <Menu.Item>
-          <div onClick={this.props.logout}>登出</div>
+          <div onClick={this.props.logout}>LOGOUT</div>
+        </Menu.Item>
+        <Menu.Divider />
+        <Menu.Item>
+          <Link to="/changelog">CHANGE LOG</Link>
         </Menu.Item>
       </Menu>
     );

@@ -1,5 +1,7 @@
 import React, {PureComponent} from 'react';
 import {Row, Timeline} from "antd";
+import styles from './ChangeLog.css';
+
 
 export default class ChangeLog extends PureComponent {
   constructor(props) {
@@ -9,10 +11,10 @@ export default class ChangeLog extends PureComponent {
   
   render() {
     return (
-      <div style={{padding: '40px', display: 'flex', flexDirection: 'row', justifyContent: 'center', fontSize: '18px'}}>
+      <div className={styles.root}>
         <Timeline>
           <Timeline.Item color="green">
-            2017-11-20  Init Project
+            2017-11-20 Init Project
           </Timeline.Item>
           <Timeline.Item color="green">
             2017-11-21 Version 1.0.0
@@ -26,7 +28,7 @@ export default class ChangeLog extends PureComponent {
           <Timeline.Item color="green">
             2017-11-24 Support Change Log
           </Timeline.Item>
-          <Timeline.Item >
+          <Timeline.Item>
             Support Custom Tags
           </Timeline.Item>
         </Timeline>

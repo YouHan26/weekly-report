@@ -1,0 +1,6 @@
+.root {
+  padding: 40px;
+  margin-left: 20px;
+  display: flex;
+  flex-direction: row;
+}
