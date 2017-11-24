@@ -14,7 +14,6 @@ import authHelper from "../../helpers/authHelper";
 
 const {showLoginModal, logout, syncAuth, login} = userAction;
 
-
 class Header extends PureComponent {
   constructor(props) {
     super(props);
@@ -45,7 +44,7 @@ class Header extends PureComponent {
     return (
       <div className={styles.root}>
         <div className={styles.content}>
-          <span style={{fontSize: '18px'}}>Weekly Report</span>
+          <Link to='' style={{fontSize: '18px'}}>Weekly Report</Link>
           {login ?
             <Dropdown overlay={logoutMenu}>
               <Button className={styles.user}>

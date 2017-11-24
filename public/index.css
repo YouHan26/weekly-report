@@ -16,6 +16,10 @@ input, textarea, button, label {
   border-radius: 0 !important;
 }
 
+a, a:hover, a:active, a:focus {
+  text-decoration: none !important;
+}
+
 /**
 custom scroll bar
  */
