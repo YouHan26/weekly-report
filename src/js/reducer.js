@@ -5,8 +5,10 @@ import {combineReducers} from 'redux';
 
 import {userReducer} from './user';
 import {calendarReducer} from './calendar';
+import {projectReducer} from './project';
 
 export default combineReducers({
   user: userReducer,
-  calendar: calendarReducer
+  calendar: calendarReducer,
+  projects: projectReducer
 });

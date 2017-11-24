@@ -46,4 +46,4 @@ class refHelper {
 }
 
 export const eventHelper = new refHelper('events');
-export const tagHelper = new refHelper('tags');
+export const projectHelper = new refHelper('projects');
