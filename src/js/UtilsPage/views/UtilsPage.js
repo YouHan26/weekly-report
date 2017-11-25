@@ -7,13 +7,13 @@ const tools = [
   [
     {key: 1, name: 'WEBSITE LOCATIONS', url: 'locations'},
     {key: 2, name: 'QRCODE GENERATOR', url: 'qrcode'},
-    {key: 3, name: 'QRCODE GENERATOR', url: 'qrcode'},
+    // {key: 3, name: 'QRCODE GENERATOR', url: 'qrcode'},
   ],
-  [
-    {key: 4, name: 'WEBSITE LOCATION', url: 'locations'},
-    {key: 5, name: 'QRCODE GENERATOR', url: 'qrcode'},
-    {key: 6, name: 'QRCODE GENERATOR', url: 'qrcode'},
-  ]
+  // [
+  //   {key: 4, name: 'WEBSITE LOCATION', url: 'locations'},
+  //   {key: 5, name: 'QRCODE GENERATOR', url: 'qrcode'},
+  //   {key: 6, name: 'QRCODE GENERATOR', url: 'qrcode'},
+  // ]
 ];
 
 

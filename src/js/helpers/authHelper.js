@@ -60,6 +60,6 @@ export default {
   },
   recoverUser: () => {
     return JSON.parse(localStorage.getItem(USER_KEY)) ||
-      {email: 'anonymous@gmail.com', password: '123456'};
+      {email: '', password: ''};
   }
 };
