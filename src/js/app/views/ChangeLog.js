@@ -34,6 +34,9 @@ export default class ChangeLog extends PureComponent {
           <Timeline.Item color="green">
             2017-11-24 Add URL Collection
           </Timeline.Item>
+          <Timeline.Item color="green">
+            2017-11-25 Only Owner of Public Event Can Update
+          </Timeline.Item>
           <Timeline.Item>
             Support Custom Tags
           </Timeline.Item>
