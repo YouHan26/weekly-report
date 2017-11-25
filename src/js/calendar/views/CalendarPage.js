@@ -13,6 +13,7 @@ import TagSelect from "../comps/TagSelect";
 import {connect} from "react-redux";
 import {loadEvents, removeEvent, updateEvent} from "../action";
 import {tags} from '../../helpers/varibles';
+import types from "../../helpers/types";
 
 const {RangePicker} = DatePicker;
 const {TextArea} = Input;
@@ -107,6 +108,14 @@ class CalendarPage extends PureComponent {
   
   updateEvent() {
     const {title, range, desc, tags, notice, common, currentEvent} = this.state;
+    const {user} = this.props;
+    const {userInfo} = user;
+    
+    if (currentEvent && currentEvent.common && currentEvent.uid === userInfo.uid) {
+      alert('NOT EVENT OWNER');
+      return;
+    }
+    
     this.props.updateEvent({
       title, desc, tags, range, notice, common,
       key: currentEvent ? currentEvent.key : null
@@ -244,6 +253,7 @@ class CalendarPage extends PureComponent {
 }
 
 CalendarPage.propTypes = {
+  user: types.user,
   loadEvents: PropTypes.func.isRequired,
   updateEvent: PropTypes.func.isRequired,
   removeEvent: PropTypes.func.isRequired,
@@ -257,7 +267,8 @@ CalendarPage.defaultProps = {
 
 export default connect((state) => {
   return {
-    events: state.calendar.events
+    events: state.calendar.events,
+    user: state.user
   };
 }, {
   loadEvents,
