@@ -18,6 +18,39 @@ import types from "../../helpers/types";
 const {RangePicker} = DatePicker;
 const {TextArea} = Input;
 
+const Event = ({event}) => {
+  return (
+    <span>
+      <strong>
+        {event.tags
+        && event.tags.length > 0
+        && event.tags.map((eventTag) => {
+          return (
+            <span key={eventTag}>
+              【{
+              tags.find((tag) => {
+                return tag.key === eventTag;
+              }).name
+            }】
+            </span>
+          );
+        })}
+      </strong>
+      <strong>
+      {event.title}
+      </strong>
+      {event.desc && (':  ' + event.desc)}
+    </span>
+  );
+};
+
+function EventAgenda({event}) {
+  return <span>
+    <strong>{event.title}</strong>
+    <p>{event.desc}</p>
+  </span>
+}
+
 
 const initState = {
   range: [moment(), moment()],
@@ -242,6 +275,12 @@ class CalendarPage extends PureComponent {
               return {
                 style: {backgroundColor}
               };
+            }}
+            components={{
+              event: Event,
+              agenda: {
+                event: EventAgenda
+              }
             }}
           />
         </div>
