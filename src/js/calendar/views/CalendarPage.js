@@ -5,15 +5,21 @@ import React, {PureComponent} from "react";
 import PropTypes from 'prop-types';
 import BigCalendar from 'react-big-calendar';
 import moment from "moment";
+import HTML5Backend from 'react-dnd-html5-backend'
+import {DragDropContext} from 'react-dnd'
 import {Button, Checkbox, DatePicker, Input} from "antd";
+import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop';
 import styles from './CalendarPage.css';
 
+import 'react-big-calendar/lib/addons/dragAndDrop/styles.less';
 import './../../helpers/dataBaseHelper';
 import TagSelect from "../comps/TagSelect";
 import {connect} from "react-redux";
 import {loadEvents, removeEvent, updateEvent} from "../action";
 import {tags} from '../../helpers/varibles';
 import types from "../../helpers/types";
+
+const DragAndDropCalendar = withDragAndDrop(BigCalendar);
 
 const {RangePicker} = DatePicker;
 const {TextArea} = Input;
@@ -79,19 +85,25 @@ class CalendarPage extends PureComponent {
     this.renderRight = this.renderRight.bind(this);
     this.removeEvent = this.removeEvent.bind(this);
     this.checkChange = this.checkChange.bind(this);
+    this.moveEvent = this.moveEvent.bind(this)
   }
   
   componentDidMount() {
     this.props.loadEvents();
-    // Push.create("Hello world!", {
-    //   body: "How's it hangin'?",
-    //   icon: '/icon.png',
-    //   timeout: 4000,
-    //   onClick: function () {
-    //     window.focus();
-    //     this.close();
-    //   }
-    // });
+  }
+  
+  moveEvent({event, start, end}) {
+    const {range, ...newEvent} = event;
+    
+    const move = start.getTime() - range[0].toDate().getTime();
+    newEvent.range = [
+      moment(range[0].toDate().getTime() + move),
+      moment(range[1].toDate().getTime() + move)
+    ];
+    delete newEvent.start;
+    delete newEvent.end;
+    
+    this.props.updateEvent(newEvent);
   }
   
   selectSlot(slotInfo) {
@@ -246,9 +258,10 @@ class CalendarPage extends PureComponent {
     return (
       <div className={styles.root}>
         <div className={styles.left}>
-          <BigCalendar
+          <DragAndDropCalendar
             style={{backgroundColor: 'white'}}
             selectable
+            onEventDrop={this.moveEvent}
             events={events.map((event) => {
               const {range} = event;
               return {
@@ -313,4 +326,4 @@ export default connect((state) => {
   loadEvents,
   updateEvent,
   removeEvent
-})(CalendarPage);
+})(DragDropContext(HTML5Backend)(CalendarPage));

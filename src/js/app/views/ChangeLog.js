@@ -40,6 +40,9 @@ export default class ChangeLog extends PureComponent {
           <Timeline.Item color="green">
             2017-11-25 Add Desc To Agenda
           </Timeline.Item>
+          <Timeline.Item color="green">
+            2017-11-27 Support Drog And Drop
+          </Timeline.Item>
           <Timeline.Item>
             Support Custom Tags
           </Timeline.Item>
