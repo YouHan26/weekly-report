@@ -44,7 +44,7 @@ export default class ChangeLog extends PureComponent {
             2017-11-27 Support Drog And Drop
           </Timeline.Item>
           <Timeline.Item>
-            Support Tomato Time
+            2017-11-28 Support Tomato Time
           </Timeline.Item>
           <Timeline.Item>
             Support Heat Map

@@ -11,6 +11,7 @@ import ChangeLog from "./app/views/ChangeLog";
 import UtilsPage from "./UtilsPage/views/UtilsPage";
 import QRcodePage from "./UtilsPage/views/QRcodePage";
 import UrlCollectionPage from "./UtilsPage/views/UrlCollectionPage";
+import TomatoPage from "./UtilsPage/views/TomatoPage";
 
 const Protected = () => <h3>Protected</h3>;
 
@@ -40,6 +41,7 @@ const App = (props) => {
           <Route exact={true} path="/helpers" component={UtilsPage} />
           <Route exact={true} path="/helpers/qrcode" component={QRcodePage} />
           <Route exact={true} path="/helpers/locations" component={UrlCollectionPage} />
+          <Route exact={true} path="/helpers/tomato" component={TomatoPage} />
           <Route component={HomePage} />
         </Switch>
       </div>

@@ -7,7 +7,7 @@ const tools = [
   [
     {key: 1, name: 'WEBSITE LOCATIONS', url: 'locations'},
     {key: 2, name: 'QRCODE GENERATOR', url: 'qrcode'},
-    // {key: 3, name: 'QRCODE GENERATOR', url: 'qrcode'},
+    {key: 3, name: 'TOMATO TIME', url: 'tomato'},
   ],
   // [
   //   {key: 4, name: 'WEBSITE LOCATION', url: 'locations'},
