@@ -26,13 +26,14 @@ const {TextArea} = Input;
 
 const Event = ({event}) => {
   return (
-    <span>
-      <strong>
+    <div>
+      <span>
+        <strong>
         {event.tags
         && event.tags.length > 0
         && event.tags.map((eventTag) => {
           return (
-            <span key={eventTag}>
+            <span key={eventTag} className={styles.tag}>
               【{
               tags.find((tag) => {
                 return tag.key === eventTag;
@@ -41,12 +42,12 @@ const Event = ({event}) => {
             </span>
           );
         })}
-      </strong>
+        </strong>
+      </span>
       <strong>
-      {event.title}
+        {event.title}
       </strong>
-      {event.desc && (':  ' + event.desc)}
-    </span>
+    </div>
   );
 };
 
