@@ -105,8 +105,6 @@ class TomatoPage extends PureComponent {
   }
   
   render() {
-    const {count} = this.state;
-    
     return (
       <div className={styles.root}>
         <div className={styles.left}>

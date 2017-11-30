@@ -1,12 +1,14 @@
 import React, {PureComponent} from 'react';
-import {Row, Timeline} from "antd";
+import {Timeline} from "antd";
 import styles from './ChangeLog.css';
+import autobind from 'autobind-decorator';
 
-
+@autobind
 export default class ChangeLog extends PureComponent {
   constructor(props) {
     super(props);
-    
+  
+    this.state = {};
   }
   
   render() {

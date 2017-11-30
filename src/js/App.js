@@ -13,7 +13,7 @@ import QRcodePage from "./UtilsPage/views/QRcodePage";
 import UrlCollectionPage from "./UtilsPage/views/UrlCollectionPage";
 import TomatoPage from "./UtilsPage/views/TomatoPage";
 
-const Protected = () => <h3>Protected</h3>;
+// const Protected = () => <h3>Protected</h3>;
 
 const PrivateRoute = ({component: Component, ...rest}) => (
   <Route {...rest} render={props => (

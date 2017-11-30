@@ -17,7 +17,8 @@ const {showLoginModal, logout, syncAuth, login} = userAction;
 class Header extends PureComponent {
   constructor(props) {
     super(props);
-    
+  
+    this.state = {};
   }
   
   componentDidMount() {
