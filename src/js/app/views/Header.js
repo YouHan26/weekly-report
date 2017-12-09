@@ -49,6 +49,9 @@ class Header extends PureComponent {
             <Link to='/helpers' style={{fontSize: '18px', marginLeft: '25px'}}>
               Useful Tools
             </Link>
+            <Link to='/mindMap' style={{fontSize: '18px', marginLeft: '25px'}}>
+              Mind Map
+            </Link>
           </div>
           {login ?
             <Dropdown overlay={logoutMenu}>
