@@ -86,6 +86,7 @@ class Mind extends PureComponent {
         x: 0,
         y: 0
       },
+      height: 850,
       grid: {
         forceAlign: true, // 是否支持网格对齐
         cell: 10,         // 网格大小

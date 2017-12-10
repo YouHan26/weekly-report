@@ -5,8 +5,7 @@ import styles from './MindMap.css';
 import {connect} from "react-redux";
 import {load, update} from "../action";
 import Mind from "../comps/Mind";
-import {Button} from "antd";
-
+import {Button, message} from "antd";
 
 class MindMap extends PureComponent {
   constructor(props) {
@@ -49,6 +48,7 @@ class MindMap extends PureComponent {
       ...this.props.data,
       mindMap: this.state.mindMap
     }, (key) => {
+      message.info('保存成功');
       if (this.state.fromNew) {
         this.props.history.push(`./${key}`);
       }
@@ -60,17 +60,26 @@ class MindMap extends PureComponent {
 
     return (
       <div className={styles.root}>
-        <div>
-          <Button onClick={this.save}>
-            save
-          </Button>
-        </div>
         <Mind
           data={this.props.data ? this.props.data.mindMap : null}
           isNew={fromNew}
-          style={{flex: 1}}
+          style={{flex: 1, overflow: 'auto'}}
           onChange={this.treeChange}
         />
+        <div className={styles.actionArea}>
+          <div>
+            <b><code>Tab</code></b> : Add Sub Item
+          </div>
+          <div>
+            <b><code>Click</code></b> : Select Item
+          </div>
+          <div>
+            <b><code>DbClick</code></b>  : Edit Select Item
+          </div>
+          <Button onClick={this.save} size={'large'} type={'primary'}>
+            Save
+          </Button>
+        </div>
       </div>
     );
   }
