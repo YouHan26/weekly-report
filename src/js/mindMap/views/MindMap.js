@@ -76,6 +76,9 @@ class MindMap extends PureComponent {
           <div>
             <b><code>DbClick</code></b>  : Edit Select Item
           </div>
+          <div>
+            <b><code>Delete</code></b>  : Remove Select Item
+          </div>
           <Button onClick={this.save} size={'large'} type={'primary'}>
             Save
           </Button>
