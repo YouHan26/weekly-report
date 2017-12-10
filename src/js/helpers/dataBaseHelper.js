@@ -16,7 +16,7 @@ class refHelper {
     this.refName = refName;
     this.ref = db.ref().child(this.refName);
   }
-  
+
   load() {
     return this.ref
     // .orderByChild('uid')
@@ -26,20 +26,26 @@ class refHelper {
         return snapshot.val();
       });
   };
-  
+
   add(data) {
     const key = this.ref.push().key;
-    
+
     return this.update({...data, key});
   }
-  
+
   update(data) {
     const {key} = data;
     return db.ref().update({
       [`/${this.refName}/${key}`]: {...data, key, uid: authHelper.getUid()}
-    });
+    })
+      .then((error) => {
+        return {
+          error,
+          key
+        };
+      });
   }
-  
+
   remove(key) {
     return key && this.ref.child(key).remove();
   }
@@ -47,3 +53,4 @@ class refHelper {
 
 export const eventHelper = new refHelper('events');
 export const projectHelper = new refHelper('projects');
+export const mindMapHelper = new refHelper('mindMaps');
