@@ -1,5 +1,6 @@
 import React from "react";
 import {BrowserRouter as Router, Redirect, Route, Switch} from "react-router-dom";
+import G6 from '@antv/g6';
 
 import LoginModal from "./user/views/LoginModal";
 import CalendarPage from "./calendar/views/CalendarPage";
@@ -12,6 +13,10 @@ import UtilsPage from "./UtilsPage/views/UtilsPage";
 import QRcodePage from "./UtilsPage/views/QRcodePage";
 import UrlCollectionPage from "./UtilsPage/views/UrlCollectionPage";
 import TomatoPage from "./UtilsPage/views/TomatoPage";
+import MindMap from "./mindMap/views/MindMap";
+import MindMapList from "./mindMap/views/MindMapList";
+
+G6.track(false);
 
 // const Protected = () => <h3>Protected</h3>;
 
@@ -39,6 +44,9 @@ const App = (props) => {
           <PrivateRoute path="/calendar" component={CalendarPage} />
           <Route exact={true} path="/changelog" component={ChangeLog} />
           <Route exact={true} path="/helpers" component={UtilsPage} />
+          <Route exact={true} path="/mindMap" component={MindMapList} />
+          <Route exact={true} path="/mindMap/new" component={MindMap} />
+          <Route exact={true} path="/mindMap/:id" component={MindMap} />
           <Route exact={true} path="/helpers/qrcode" component={QRcodePage} />
           <Route exact={true} path="/helpers/locations" component={UrlCollectionPage} />
           <Route exact={true} path="/helpers/tomato" component={TomatoPage} />

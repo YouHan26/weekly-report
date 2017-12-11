@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@antv/g6": "^1.2.1",
     "antd": "^2.13.10",
     "autobind-decorator": "^2.1.0",
     "classnames": "^2.2.5",
@@ -14,6 +15,7 @@
     "react": "^16.1.1",
     "react-big-calendar": "^0.17.0",
     "react-color": "^2.13.8",
+    "react-contextmenu": "^2.9.1",
     "react-dnd": "^2.5.4",
     "react-dnd-html5-backend": "^2.5.4",
     "react-dom": "^16.1.1",
