@@ -7,13 +7,15 @@ import {userEpic} from "./user";
 import {calendarEpic} from './calendar';
 import {projectEpic} from './project';
 import {mindMapEpic} from './mindMap';
+import {configEpic} from './config';
 
 
 const rootEpic = combineEpics(
   userEpic,
   calendarEpic,
   projectEpic,
-  mindMapEpic
+  mindMapEpic,
+  configEpic,
 );
 
 export default rootEpic;

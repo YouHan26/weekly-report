@@ -28,6 +28,17 @@ export const tags = [{
   color: '#dd7a7a'
 }];
 
+
+export const colors = [
+  '#7ac9de',
+  '#7eade9',
+  '#f8b3c5',
+  '#8ad6a0',
+  '#9789d3',
+  '#ead373',
+  '#dd7a7a'
+];
+
 // #dda67a
 
 

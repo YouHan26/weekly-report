@@ -9,16 +9,11 @@ import {loadEvents} from "./action";
 import moment from "moment";
 import authHelper from "../helpers/authHelper";
 import pushHelper from "../helpers/pushHelper";
-import {userActionType} from '../user';
 
 const loadEventsEpic = (action$) => {
-  return action$
-    .filter((action) => {
-      return action.type === actionType.load_event_start ||
-        action.type === userActionType.login;
-    })
+  return action$.ofType(actionType.load_event_start)
     .mergeMap((action) => {
-      return new Observable.fromPromise(eventHelper.load())
+      return Observable.fromPromise(eventHelper.load())
         .map((events) => {
           return {
             ...action,
@@ -49,7 +44,7 @@ const updateEventEpic = (action$) => {
   return action$.ofType(actionType.update_event_start)
     .mergeMap((action) => {
       const event = action.event;
-      return new Observable.fromPromise(
+      return Observable.fromPromise(
         event.key ? eventHelper.update(event)
           : eventHelper.add(event)
       )
@@ -68,7 +63,7 @@ const updateEventEpic = (action$) => {
 const removeEventEpic = (action$) => {
   return action$.ofType(actionType.remove_event_start)
     .mergeMap((action) => {
-      return new Observable.fromPromise(eventHelper.remove(action.eventKey))
+      return Observable.fromPromise(eventHelper.remove(action.eventKey))
         .map(() => {
           return action;
         })

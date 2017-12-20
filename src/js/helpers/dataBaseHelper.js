@@ -54,3 +54,4 @@ class refHelper {
 export const eventHelper = new refHelper('events');
 export const projectHelper = new refHelper('projects');
 export const mindMapHelper = new refHelper('mindMaps');
+export const tagsHelper = new refHelper('tags');

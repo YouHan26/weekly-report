@@ -15,6 +15,7 @@ import UrlCollectionPage from "./UtilsPage/views/UrlCollectionPage";
 import TomatoPage from "./UtilsPage/views/TomatoPage";
 import MindMap from "./mindMap/views/MindMap";
 import MindMapList from "./mindMap/views/MindMapList";
+import ConfigPage from "./config/views/ConfigPage";
 
 G6.track(false);
 
@@ -43,6 +44,7 @@ const App = (props) => {
           <Route exact={true} path={`/`} component={CalendarPage} />
           <PrivateRoute path="/calendar" component={CalendarPage} />
           <Route exact={true} path="/changelog" component={ChangeLog} />
+          <Route exact={true} path="/config" component={ConfigPage} />
           <Route exact={true} path="/helpers" component={UtilsPage} />
           <Route exact={true} path="/mindMap" component={MindMapList} />
           <Route exact={true} path="/mindMap/new" component={MindMap} />

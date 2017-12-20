@@ -45,14 +45,14 @@ export default class ChangeLog extends PureComponent {
           <Timeline.Item color="green">
             2017-11-27 Support Drog And Drop
           </Timeline.Item>
-          <Timeline.Item>
+          <Timeline.Item color="green">
             2017-11-28 Support Tomato Time
           </Timeline.Item>
-          <Timeline.Item>
-            Support Heat Map
+          <Timeline.Item color="green">
+            2017-12-17 Support Heat Map
           </Timeline.Item>
-          <Timeline.Item>
-            Support Custom Tags
+          <Timeline.Item color="green">
+            2017-12-20 Support Custom Tags
           </Timeline.Item>
         </Timeline>
       </div>

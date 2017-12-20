@@ -7,10 +7,12 @@ import {userReducer} from './user';
 import {calendarReducer} from './calendar';
 import {projectReducer} from './project';
 import {mindMapReducer} from './mindMap';
+import {configReducer} from './config';
 
 export default combineReducers({
   user: userReducer,
   calendar: calendarReducer,
   projects: projectReducer,
-  mindMap: mindMapReducer
+  mindMap: mindMapReducer,
+  config: configReducer
 });

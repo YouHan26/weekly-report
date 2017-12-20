@@ -16,40 +16,12 @@ import './../../helpers/dataBaseHelper';
 import TagSelect from "../comps/TagSelect";
 import {connect} from "react-redux";
 import {loadEvents, removeEvent, updateEvent} from "../action";
-import {tags} from '../../helpers/varibles';
 import types from "../../helpers/types";
 
 const DragAndDropCalendar = withDragAndDrop(BigCalendar);
 
 const {RangePicker} = DatePicker;
 const {TextArea} = Input;
-
-const Event = ({event}) => {
-  return (
-    <div>
-      <span>
-        <strong>
-        {event.tags
-        && event.tags.length > 0
-        && event.tags.map((eventTag) => {
-          return (
-            <span key={eventTag} className={styles.tag}>
-              【{
-              tags.find((tag) => {
-                return tag.key === eventTag;
-              }).name
-            }】
-            </span>
-          );
-        })}
-        </strong>
-      </span>
-      <strong>
-        {event.title}
-      </strong>
-    </div>
-  );
-};
 
 function EventAgenda({event}) {
   return <span>
@@ -90,7 +62,7 @@ class CalendarPage extends PureComponent {
   }
   
   componentDidMount() {
-    this.props.loadEvents();
+    // this.props.loadEvents();
   }
   
   moveEvent({event, start, end}) {
@@ -228,6 +200,7 @@ class CalendarPage extends PureComponent {
           </Checkbox>
         </div>
         <TagSelect
+          dataSet={Object.values(this.props.tags)}
           value={this.state.tags}
           onChange={this.tagChange}
         />
@@ -254,7 +227,33 @@ class CalendarPage extends PureComponent {
   }
   
   render() {
-    const {events} = this.props;
+    const {events, tags} = this.props;
+    
+    
+    const Event = ({event}) => {
+      return (
+        <div>
+      <span>
+        <strong>
+        {event.tags
+        && event.tags.length > 0
+        && event.tags.map((eventTag) => {
+          const tag = tags[eventTag] || {};
+          const {name, color} = tag;
+          return (
+            <span key={eventTag} className={styles.tag}>
+              【{name}】
+            </span>
+          );
+        })}
+        </strong>
+      </span>
+          <strong>
+            {event.title}
+          </strong>
+        </div>
+      );
+    };
     
     return (
       <div className={styles.root}>
@@ -282,9 +281,11 @@ class CalendarPage extends PureComponent {
               
               const eventTags = event.tags;
               if (eventTags && eventTags.length > 0) {
-                backgroundColor = tags.find((tag) => {
-                  return tag.key === eventTags[0];
-                }).color;
+                const tag = tags[eventTags[0]];
+                const {color} = tag || {};
+                if (color) {
+                  backgroundColor = color;
+                }
               }
               return {
                 style: {backgroundColor}
@@ -311,17 +312,20 @@ CalendarPage.propTypes = {
   updateEvent: PropTypes.func.isRequired,
   removeEvent: PropTypes.func.isRequired,
   events: PropTypes.array,
+  tags: PropTypes.shape({})
 };
 
 CalendarPage.defaultProps = {
-  events: []
+  events: [],
+  tags: {}
 };
 
 
 export default connect((state) => {
   return {
     events: state.calendar.events,
-    user: state.user
+    user: state.user,
+    tags: state.config.tags
   };
 }, {
   loadEvents,

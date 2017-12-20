@@ -1,6 +1,5 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
-import {tags} from '../../helpers/varibles';
 import styles from './TagSelect.css';
 import {Button} from "antd";
 
@@ -22,10 +21,11 @@ class TagSelect extends PureComponent {
   }
   
   render() {
-    const {value} = this.props;
+    const {value, dataSet} = this.props;
+    console.log(dataSet);
     return (
       <div className={styles.root}>
-        {tags.map((tag) => {
+        {dataSet.map((tag) => {
           return (
             <Button
               key={tag.key}
@@ -45,14 +45,16 @@ class TagSelect extends PureComponent {
 
 TagSelect.propTypes = {
   value: PropTypes.arrayOf(PropTypes.string),
-  onChange: PropTypes.func
+  onChange: PropTypes.func,
+  dataSet: PropTypes.array
 };
 
 TagSelect.defaultProps = {
   value: [],
   onChange: () => {
   
-  }
+  },
+  dataSet: []
 };
 
 export default TagSelect;

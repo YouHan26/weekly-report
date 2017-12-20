@@ -1,0 +1,13 @@
+.root {
+  flex: 1;
+  background-color: #f5f5f5;
+}
+
+
+.tagContainer{
+  margin: auto;
+  background-color: white;
+  max-width: 800px;
+  padding: 20px;
+  margin-top: 20px;
+}

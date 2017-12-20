@@ -33,11 +33,14 @@ class Header extends PureComponent {
     const logoutMenu = (
       <Menu>
         <Menu.Item>
-          <div onClick={this.props.logout}>LOGOUT</div>
+          <div onClick={this.props.logout}>Logout</div>
         </Menu.Item>
         <Menu.Divider />
         <Menu.Item>
-          <Link to="/changelog">CHANGE LOG</Link>
+          <Link to="/changelog">Change Log</Link>
+        </Menu.Item>
+        <Menu.Item>
+          <Link to="/config">Config</Link>
         </Menu.Item>
       </Menu>
     );
