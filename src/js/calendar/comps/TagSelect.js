@@ -22,7 +22,6 @@ class TagSelect extends PureComponent {
   
   render() {
     const {value, dataSet} = this.props;
-    console.log(dataSet);
     return (
       <div className={styles.root}>
         {dataSet.map((tag) => {
