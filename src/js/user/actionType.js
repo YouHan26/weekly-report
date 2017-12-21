@@ -11,6 +11,10 @@ export const actionTypes = {
   logout: `${prefix}logout`,
   login_start: `${prefix}login_start`,
   login: `${prefix}login`,
+  upload_info: `${prefix}upload_info`,
+  upload_info_start: `${prefix}upload_info_start`,
+  load_user_list: `${prefix}load_user_list`,
+  load_user_list_start: `${prefix}load_user_list_start`,
 };
 
 export default actionTypes;

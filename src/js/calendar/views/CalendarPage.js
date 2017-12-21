@@ -5,6 +5,7 @@ import React, {PureComponent} from "react";
 import PropTypes from 'prop-types';
 import BigCalendar from 'react-big-calendar';
 import moment from "moment";
+import autobind from 'autobind-decorator';
 import HTML5Backend from 'react-dnd-html5-backend'
 import {DragDropContext} from 'react-dnd'
 import {Button, Checkbox, DatePicker, Input} from "antd";
@@ -17,6 +18,7 @@ import TagSelect from "../comps/TagSelect";
 import {connect} from "react-redux";
 import {loadEvents, removeEvent, updateEvent} from "../action";
 import types from "../../helpers/types";
+import UserSelect from "../comps/UserSelect";
 
 const DragAndDropCalendar = withDragAndDrop(BigCalendar);
 
@@ -37,7 +39,8 @@ const initState = {
   desc: '',
   tags: [],
   notice: false,
-  common: false
+  common: false,
+  commonUser: [],
 };
 
 class CalendarPage extends PureComponent {
@@ -48,23 +51,13 @@ class CalendarPage extends PureComponent {
       ...initState,
       currentEvent: null,
     };
-    
-    this.change = this.change.bind(this);
-    this.rangeChange = this.rangeChange.bind(this);
-    this.tagChange = this.tagChange.bind(this);
-    this.selectEvent = this.selectEvent.bind(this);
-    this.selectSlot = this.selectSlot.bind(this);
-    this.updateEvent = this.updateEvent.bind(this);
-    this.renderRight = this.renderRight.bind(this);
-    this.removeEvent = this.removeEvent.bind(this);
-    this.checkChange = this.checkChange.bind(this);
-    this.moveEvent = this.moveEvent.bind(this)
   }
   
   componentDidMount() {
     // this.props.loadEvents();
   }
   
+  @autobind
   moveEvent({event, start, end}) {
     const {range, ...newEvent} = event;
     
@@ -79,6 +72,7 @@ class CalendarPage extends PureComponent {
     this.props.updateEvent(newEvent);
   }
   
+  @autobind
   selectSlot(slotInfo) {
     this.setState({
       currentEvent: null,
@@ -87,32 +81,44 @@ class CalendarPage extends PureComponent {
     });
   }
   
+  @autobind
   change(e) {
     this.setState({
       [e.target.name]: e.target.value
     });
   }
   
+  @autobind
   checkChange(e) {
     this.setState({
       [e.target.name]: e.target.checked
     });
   }
   
+  @autobind
+  userSelectChange(commonUser) {
+    this.setState({
+      commonUser
+    });
+  }
+  
+  @autobind
   rangeChange(range) {
     this.setState({
       range
     });
   }
   
+  @autobind
   tagChange(value) {
     this.setState({
       tags: value
     });
   }
   
+  @autobind
   selectEvent(event) {
-    const {title, desc, tags, range, notice = false, common = false} = event;
+    const {title, desc, tags, range, notice = false, common = false, commonUser = []} = event;
     this.setState({
       currentEvent: event,
       title,
@@ -120,22 +126,17 @@ class CalendarPage extends PureComponent {
       tags,
       notice,
       common,
+      commonUser,
       range: [moment(range[0]), moment(range[1])]
     });
   }
   
+  @autobind
   updateEvent() {
-    const {title, range, desc, tags, notice, common, currentEvent} = this.state;
-    const {user} = this.props;
-    const {userInfo} = user;
-    
-    if (currentEvent && currentEvent.common && currentEvent.uid === userInfo.uid) {
-      alert('NOT EVENT OWNER');
-      return;
-    }
+    const {title, range, desc, tags, notice, common, commonUser, currentEvent} = this.state;
     
     this.props.updateEvent({
-      title, desc, tags, range, notice, common,
+      title, desc, tags, range, notice, common, commonUser,
       key: currentEvent ? currentEvent.key : null
     }, () => {
       this.setState({
@@ -145,6 +146,7 @@ class CalendarPage extends PureComponent {
     });
   }
   
+  @autobind
   removeEvent() {
     const {currentEvent} = this.state;
     this.props.removeEvent(currentEvent.key);
@@ -154,8 +156,19 @@ class CalendarPage extends PureComponent {
     });
   }
   
+  @autobind
   renderRight() {
     const {currentEvent} = this.state;
+    const {user} = this.props;
+    const {userInfo} = user;
+    
+    let allowEdit = false;
+    
+    if (currentEvent && (
+        (currentEvent.uid === userInfo.uid)
+      )) {
+      allowEdit = true;
+    }
     
     return (
       <div className={styles.right}>
@@ -187,7 +200,7 @@ class CalendarPage extends PureComponent {
           onChange={this.checkChange}
           checked={this.state.notice}
         >
-          ENABLE NOTIFICATION
+          Enable Notification
         </Checkbox>
         <div>
           <Checkbox
@@ -196,29 +209,37 @@ class CalendarPage extends PureComponent {
             onChange={this.checkChange}
             checked={this.state.common}
           >
-            ENABLE PUBLIC
+            Enable Public
           </Checkbox>
+          {this.state.common ?
+            <UserSelect
+              onChange={this.userSelectChange}
+              value={this.state.commonUser}
+            /> : null
+          }
         </div>
         <TagSelect
           dataSet={Object.values(this.props.tags)}
           value={this.state.tags}
           onChange={this.tagChange}
         />
-        <Button
-          onClick={this.updateEvent}
-          type={'primary'}
-          className={styles.button}
-        >
-          {currentEvent ? 'UPDATE' : 'NEW'} EVENT
-        </Button>
-        {currentEvent ?
+        {allowEdit ?
+          <Button
+            onClick={this.updateEvent}
+            type={'primary'}
+            className={styles.button}
+          >
+            {currentEvent ? 'UPDATE' : 'NEW'} EVENT
+          </Button> : null
+        }
+        {allowEdit ?
           <Button
             onClick={this.removeEvent}
             type={'danger'}
             className={styles.button}
             style={{marginLeft: '6px'}}
           >
-            REMOVE EVENT
+            Remove Event
           </Button>
           : null
         }
@@ -228,7 +249,6 @@ class CalendarPage extends PureComponent {
   
   render() {
     const {events, tags} = this.props;
-    
     
     const Event = ({event}) => {
       return (

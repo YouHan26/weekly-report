@@ -20,8 +20,12 @@ const loadEventsEpic = (action$) => {
             type: actionType.load_event,
             events: Object.values(events || {})
               .filter((event) => {
+                const {common, commonUser = []} = event;
                 return event.uid === authHelper.getUid()
-                  || event.common === true;
+                  || ( common && (
+                    (commonUser.length <= 0) ||
+                    (commonUser.indexOf(authHelper.getUid()) !== -1)
+                  ));
               })
               .map((event) => {
                 const {range} = event;

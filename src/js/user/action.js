@@ -36,3 +36,9 @@ export const syncAuth = () => {
     type: actionType.sync_user
   };
 };
+
+export const loadUserList = () => {
+  return {
+    type: actionType.load_user_list_start
+  };
+};

@@ -8,6 +8,7 @@ const initState = {
   login: false,
   showModal: false,
   userInfo: {},
+  userList: {},
 };
 
 const state = (state = initState, action) => {
@@ -27,6 +28,12 @@ const state = (state = initState, action) => {
         showModal: false,
         login: true,
         userInfo: action.userInfo
+      };
+    }
+    case actionType.load_user_list: {
+      return {
+        ...state,
+        userList: action.data
       };
     }
     default: {

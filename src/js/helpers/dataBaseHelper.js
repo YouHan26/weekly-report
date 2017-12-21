@@ -36,7 +36,7 @@ class refHelper {
   update(data) {
     const {key} = data;
     return db.ref().update({
-      [`/${this.refName}/${key}`]: {...data, key, uid: authHelper.getUid()}
+      [`/${this.refName}/${key}`]: {uid: authHelper.getUid(), ...data, key}
     })
       .then((error) => {
         return {
@@ -55,3 +55,4 @@ export const eventHelper = new refHelper('events');
 export const projectHelper = new refHelper('projects');
 export const mindMapHelper = new refHelper('mindMaps');
 export const tagsHelper = new refHelper('tags');
+export const userHelper = new refHelper('users');
