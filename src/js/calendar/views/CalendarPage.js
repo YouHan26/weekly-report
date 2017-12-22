@@ -232,6 +232,15 @@ class CalendarPage extends PureComponent {
             {currentEvent ? 'UPDATE' : 'NEW'} EVENT
           </Button> : null
         }
+        {!currentEvent ?
+          <Button
+            onClick={this.updateEvent}
+            type={'primary'}
+            className={styles.button}
+          >
+            NEW EVENT
+          </Button> : null
+        }
         {allowEdit ?
           <Button
             onClick={this.removeEvent}
