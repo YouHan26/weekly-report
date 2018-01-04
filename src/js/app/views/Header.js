@@ -9,10 +9,9 @@ import PropTypes from "prop-types";
 import {userAction} from '../../user';
 import styles from "./Header.css";
 import types from "../../helpers/types";
-import authHelper from "../../helpers/authHelper";
 
 
-const {showLoginModal, logout, syncAuth, login} = userAction;
+const {showLoginModal, logout, syncAuth} = userAction;
 
 class Header extends PureComponent {
   constructor(props) {
@@ -22,8 +21,7 @@ class Header extends PureComponent {
   }
   
   componentDidMount() {
-    const userData = authHelper.recoverUser();
-    this.props.login(userData.email, userData.password);
+    this.props.syncAuth();
   }
   
   render() {
@@ -48,15 +46,17 @@ class Header extends PureComponent {
     return (
       <div className={styles.root}>
         <div className={styles.content}>
-          <div>
-            <Link to='' style={{fontSize: '18px'}}>Weekly Report</Link>
-            <Link to='/helpers' style={{fontSize: '18px', marginLeft: '25px'}}>
-              Useful Tools
-            </Link>
-            <Link to='/mindMap' style={{fontSize: '18px', marginLeft: '25px'}}>
-              Mind Map
-            </Link>
-          </div>
+          {login ?
+            <div>
+              <Link to='' style={{fontSize: '18px'}}>Weekly Report</Link>
+              <Link to='/helpers' style={{fontSize: '18px', marginLeft: '25px'}}>
+                Useful Tools
+              </Link>
+              <Link to='/mindMap' style={{fontSize: '18px', marginLeft: '25px'}}>
+                Mind Map
+              </Link>
+            </div> : null
+          }
           {login ?
             <Dropdown overlay={logoutMenu}>
               <Button className={styles.user}>
@@ -79,7 +79,6 @@ Header.propTypes = {
   user: types.user,
   showLoginModal: PropTypes.func.isRequired,
   logout: PropTypes.func.isRequired,
-  login: PropTypes.func.isRequired,
   syncAuth: PropTypes.func.isRequired,
 };
 
@@ -94,6 +93,5 @@ export default connect((state) => {
 }, {
   showLoginModal,
   logout,
-  login,
   syncAuth
 })(Header);

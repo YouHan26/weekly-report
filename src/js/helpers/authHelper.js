@@ -13,9 +13,6 @@ const init = () => {
     storageBucket: "weekly-report-d2fcc.appspot.com",
     messagingSenderId: "701357902566"
   });
-  
-  
-  // firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL);
 };
 
 init();
@@ -52,6 +49,9 @@ export default {
   syncAuth: () => {
     return auth.currentUser;
   },
+  getAuthInstance: () => {
+    return auth;
+  },
   getUid: () => {
     return auth.currentUser ? auth.currentUser.uid : 'anonymous'
   },
@@ -59,7 +59,13 @@ export default {
     localStorage.setItem(USER_KEY, JSON.stringify(data))
   },
   recoverUser: () => {
-    return JSON.parse(localStorage.getItem(USER_KEY)) ||
-      {email: '', password: ''};
+    const str = localStorage.getItem(USER_KEY);
+    if (str) {
+      const {email, password} = JSON.parse(str) || {};
+      if (email && password) {
+        return {email, password};
+      }
+    }
+    return {};
   }
 };

@@ -25,22 +25,25 @@ const logoutEpic = (action$) => {
 const syncUserEpic = (action$) => {
   return action$.ofType(actionType.sync_user)
     .mergeMap((action) => {
-      return Observable.of(authHelper.syncAuth())
-        .filter((data) => {
-          return !!data;
-        })
-        .map((data) => {
-          return {
+      return Observable.create((observe) => {
+        authHelper.getAuthInstance().onAuthStateChanged((user) => {
+          observe.next({
             ...action,
             type: actionType.login,
-            userInfo: data
-          };
+            userInfo: user
+          });
+          observe.next(loadTag());
+          observe.next(loadEvents());
         })
-    })
+      });
+    });
 };
 
 const loginEpic = (action$) => {
   return action$.ofType(actionType.login_start)
+    .filter((action) => {
+      return action.email && action.password;
+    })
     .mergeMap((action) => {
       return Observable.concat(
         Observable.fromPromise(authHelper.login(action.email, action.password))
