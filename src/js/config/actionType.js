@@ -8,6 +8,10 @@ export const actionTypes = {
   load_start: `${prefix}load_start`,
   update: `${prefix}update`,
   update_start: `${prefix}update_start`,
+  load_alert: `${prefix}load_alert`,
+  load_alert_start: `${prefix}load_alert_start`,
+  update_alert: `${prefix}update_alert`,
+  update_alert_start: `${prefix}update_alert_start`,
 };
 
 export default actionTypes;

@@ -4,9 +4,10 @@
 import {Observable} from "rxjs";
 import {combineEpics} from "redux-observable";
 import actionType from "./actionType";
-import {tagsHelper} from '../helpers/dataBaseHelper';
+import {alertHelper, tagsHelper} from '../helpers/dataBaseHelper';
 import authHelper from "../helpers/authHelper";
-import {loadTag} from "./action";
+import {loadAlert, loadTag} from "./action";
+import pushHelper from "../helpers/pushHelper";
 
 const loadTagEpic = (action$) => {
   return action$
@@ -50,9 +51,55 @@ const updateTagEpic = (action$) => {
 };
 
 
+const loadAlertEpic = (action$) => {
+  return action$
+    .ofType(actionType.load_alert_start)
+    .mergeMap((action) => {
+      return Observable.fromPromise(alertHelper.load())
+        .map((events) => {
+          
+          let data = {};
+          if (events) {
+            Object.keys(events).map((key) => {
+              const item = events[key];
+              if (item.uid === authHelper.getUid()) {
+                data = item;
+              }
+            });
+          }
+          pushHelper.alertWater(data.water);
+          
+          return {
+            ...action,
+            type: actionType.load_alert,
+            data
+          };
+        });
+    });
+};
+
+const updateAlertEpic = (action$) => {
+  return action$.ofType(actionType.update_alert_start)
+    .mergeMap((action) => {
+      const {data} = action;
+      const {uid} = data;
+      
+      return Observable.concat(
+        Observable.fromPromise(uid ? alertHelper.update(data) : alertHelper.add(data))
+          .map(({}) => {
+            action.after && action.after();
+            return loadAlert();
+          })
+      );
+    })
+};
+
+
 export default combineEpics(
   loadTagEpic,
-  updateTagEpic
+  updateTagEpic,
+  updateAlertEpic,
+  loadAlertEpic,
 );
 
 

@@ -5,7 +5,7 @@ import {Observable} from "rxjs";
 import {combineEpics} from "redux-observable";
 import actionType from "./actionType";
 import authHelper from "../helpers/authHelper";
-import {loadTag} from "../config/action";
+import {loadAlert, loadTag} from "../config/action";
 import {loadEvents} from "../calendar/action";
 import {userHelper} from "../helpers/dataBaseHelper";
 import {loadUserList} from "./action";
@@ -33,6 +33,7 @@ const syncUserEpic = (action$) => {
             userInfo: user
           });
           observe.next(loadTag());
+          observe.next(loadAlert());
           observe.next(loadEvents());
         })
       });

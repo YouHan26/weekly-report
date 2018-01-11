@@ -56,3 +56,4 @@ export const projectHelper = new refHelper('projects');
 export const mindMapHelper = new refHelper('mindMaps');
 export const tagsHelper = new refHelper('tags');
 export const userHelper = new refHelper('users');
+export const alertHelper = new refHelper('alerts');

@@ -1,11 +1,11 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from "react-redux";
-import {Button, Input, Row} from "antd";
+import {Button, Checkbox, Input, Row} from "antd";
 import autobind from 'autobind-decorator';
 import styles from './ConfigPage.css';
 import ColorSelect from "../comps/ColorSelect";
-import {loadTag, updateTag} from "../action";
+import {loadTag, updateAlert, updateTag} from "../action";
 
 const initState = {
   currentTag: null,
@@ -64,8 +64,18 @@ class ConfigPage extends PureComponent {
     };
   }
   
+  @autobind
+  changeAlert(e) {
+    if (e) {
+      this.props.updateAlert({
+        ...this.props.alerts,
+        water: e.target.checked
+      });
+    }
+  }
+  
   render() {
-    const {tags} = this.props;
+    const {tags, alerts} = this.props;
     const {currentTag} = this.state;
     const currentTagKey = (currentTag || {}).key;
     return (
@@ -109,6 +119,12 @@ class ConfigPage extends PureComponent {
             })}
           </Row>
         </div>
+        <div className={styles.tagContainer}>
+          <div style={{flexDirection: 'row'}}>
+            <h3 style={{marginBottom: 12}}>Tag Config</h3>
+            <Checkbox onChange={this.changeAlert} checked={alerts.water}>Water Notification</Checkbox>
+          </div>
+        </div>
       </div>
     );
   }
@@ -118,15 +134,18 @@ class ConfigPage extends PureComponent {
 ConfigPage.propTypes = {
   loadTag: PropTypes.func.isRequired,
   updateTag: PropTypes.func.isRequired,
+  updateAlert: PropTypes.func.isRequired,
   tags: PropTypes.shape({}).isRequired,
 };
 
 export default connect((state, props) => {
-  const {tags} = state.config;
+  const {tags, alerts} = state.config;
   return {
-    tags
+    tags,
+    alerts
   };
 }, {
   loadTag,
   updateTag,
+  updateAlert
 })(ConfigPage);

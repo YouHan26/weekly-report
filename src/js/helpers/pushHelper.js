@@ -3,11 +3,12 @@ import moment from "moment";
 
 export default class pushHelper {
   constructor() {
-
+    
     this.interval = null;
     this.queue = [];
+    this.waterAlert = null;
   }
-
+  
   static notify(event) {
     Push.create(event.title, {
       body: event.desc,
@@ -18,7 +19,7 @@ export default class pushHelper {
       }
     });
   }
-
+  
   static init() {
     this.interval = setInterval(() => {
       if (this.queue.length <= 0) {
@@ -31,15 +32,15 @@ export default class pushHelper {
       }
     }, 1000 * 60);
   }
-
+  
   static clear() {
     this.queue = [];
-
+    
     if (this.interval) {
       clearInterval(this.interval);
     }
   }
-
+  
   static start(arr) {
     this.clear();
     this.queue = arr.sort((a, b) => {
@@ -50,10 +51,30 @@ export default class pushHelper {
       });
     pushHelper.init();
   }
-
+  
   static push(arr) {
     this.queue = this.queue.concat(arr).sort((a, b) => {
       return a.range[0].isSameOrBefore(b.range[0], 'minute');
     });
+  }
+  
+  static alertWater(alert) {
+    if (alert) {
+      if (!this.waterAlert) {
+        this.waterAlert = setInterval(() => {
+          if (new Date().getHours() === 0) {
+            pushHelper.notify({
+              title: '喝水时间到',
+              desc: ''
+            });
+          }
+        }, 1000 * 60);
+      }
+    } else {
+      if (this.waterAlert) {
+        clearInterval(this.waterAlert);
+        this.waterAlert = null;
+      }
+    }
   }
 }

@@ -18,7 +18,19 @@ const tags = (state = initState, action) => {
   }
 };
 
+const alerts = (state = {}, action) => {
+  switch (action.type) {
+    case actionType.load_alert: {
+      return action.data;
+    }
+    default: {
+      return state;
+    }
+  }
+};
+
 
 export default combineReducers({
-  tags
+  tags,
+  alerts
 });
