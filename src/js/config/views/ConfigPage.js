@@ -121,7 +121,7 @@ class ConfigPage extends PureComponent {
         </div>
         <div className={styles.tagContainer}>
           <div style={{flexDirection: 'row'}}>
-            <h3 style={{marginBottom: 12}}>Tag Config</h3>
+            <h3 style={{marginBottom: 12}}>Alert Config</h3>
             <Checkbox onChange={this.changeAlert} checked={alerts.water}>Water Notification</Checkbox>
           </div>
         </div>
