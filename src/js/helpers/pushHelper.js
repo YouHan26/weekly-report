@@ -64,10 +64,10 @@ export default class pushHelper {
         this.waterAlert = setInterval(() => {
           console.log(new Date(), new Date().getMinutes());
           if (new Date().getMinutes() === 0) {
-            pushHelper.notify({
-              title: '喝水时间到',
-              desc: ''
-            });
+            // pushHelper.notify({
+            //   title: '喝水时间到',
+            //   desc: ''
+            // });
           }
         }, 1000 * 60);
       }

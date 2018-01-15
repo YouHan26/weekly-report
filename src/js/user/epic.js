@@ -27,6 +27,9 @@ const syncUserEpic = (action$) => {
     .mergeMap((action) => {
       return Observable.create((observe) => {
         authHelper.getAuthInstance().onAuthStateChanged((user) => {
+          if (!user) {
+            return;
+          }
           observe.next({
             ...action,
             type: actionType.login,
