@@ -51,6 +51,9 @@ const loginEpic = (action$) => {
     .mergeMap((action) => {
       return Observable.concat(
         Observable.fromPromise(authHelper.login(action.email, action.password))
+          .filter((userInfo) => {
+            return userInfo;
+          })
           .map((userInfo) => {
             return {
               action,

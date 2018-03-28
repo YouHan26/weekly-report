@@ -38,6 +38,7 @@ export default {
           alert(errorMessage);
         }
         console.log(error);
+        return null;
       });
   },
   hasAuth: () => {
