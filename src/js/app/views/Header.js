@@ -16,7 +16,7 @@ const {showLoginModal, logout, syncAuth} = userAction;
 class Header extends PureComponent {
   constructor(props) {
     super(props);
-  
+    
     this.state = {};
   }
   
@@ -46,17 +46,22 @@ class Header extends PureComponent {
     return (
       <div className={styles.root}>
         <div className={styles.content}>
-          {login ?
-            <div>
-              <Link to='' style={{fontSize: '18px'}}>Weekly Report</Link>
+          <div>
+            <Link to='' style={{fontSize: '18px'}}>Weekly Report</Link>
+            {login ?
               <Link to='/helpers' style={{fontSize: '18px', marginLeft: '25px'}}>
                 Useful Tools
-              </Link>
+              </Link> : null
+            }
+            {login ?
               <Link to='/mindMap' style={{fontSize: '18px', marginLeft: '25px'}}>
                 Mind Map
-              </Link>
-            </div> : null
-          }
+              </Link> : null
+            }
+            <Link to='/constants' style={{fontSize: '18px', marginLeft: '25px'}}>
+              Constants
+            </Link>
+          </div>
           {login ?
             <Dropdown overlay={logoutMenu}>
               <Button className={styles.user}>

@@ -4,6 +4,7 @@
 import {applyMiddleware, createStore} from "redux";
 import {createEpicMiddleware} from "redux-observable";
 import {composeWithDevTools} from "redux-devtools-extension";
+import thunk from 'redux-thunk';
 
 import rootReducer from "../reducer";
 import rootEpic from '../epic';
@@ -57,7 +58,7 @@ const epicMiddleware = createEpicMiddleware(rootEpic, {
 
 export default createStore(rootReducer,
   composeWithDevTools(
-    applyMiddleware(epicMiddleware),
+    applyMiddleware(epicMiddleware, thunk),
   )
 );
 /* eslint-enable */

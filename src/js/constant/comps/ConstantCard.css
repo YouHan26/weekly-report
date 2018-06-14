@@ -1,0 +1,8 @@
+
+.item{
+  background-color: white;
+  height: 300px;
+  min-width: 200px;
+  margin: 12px;
+  overflow-y: scroll;
+}

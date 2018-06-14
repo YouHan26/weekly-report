@@ -9,10 +9,13 @@ import {projectReducer} from './project';
 import {mindMapReducer} from './mindMap';
 import {configReducer} from './config';
 
+import constant from './constant/redux';
+
 export default combineReducers({
   user: userReducer,
   calendar: calendarReducer,
   projects: projectReducer,
   mindMap: mindMapReducer,
-  config: configReducer
+  config: configReducer,
+  constant
 });

@@ -16,6 +16,8 @@ import TomatoPage from "./UtilsPage/views/TomatoPage";
 import MindMap from "./mindMap/views/MindMap";
 import MindMapList from "./mindMap/views/MindMapList";
 import ConfigPage from "./config/views/ConfigPage";
+import ConstantListPage from "./constant/views/ConstantListPage";
+import ConstantNewPage from "./constant/views/ConstantNewPage";
 
 G6.track(false);
 
@@ -52,6 +54,9 @@ const App = (props) => {
           <Route exact={true} path="/helpers/qrcode" component={QRcodePage} />
           <Route exact={true} path="/helpers/locations" component={UrlCollectionPage} />
           <Route exact={true} path="/helpers/tomato" component={TomatoPage} />
+          
+          <Route exact={true} path={"/constants"} component={ConstantListPage} />
+          <Route exact={true} path={"/constants/new"} component={ConstantNewPage} />
           <Route component={HomePage} />
         </Switch>
       </div>
